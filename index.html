@@ -50,7 +50,6 @@
   }
   input, textarea { user-select: text; }
 
-  /* ===== Layout principal ===== */
   .screen { display: none; min-height: 100vh; min-height: 100dvh; flex-direction: column; }
   .screen.active { display: flex; }
 
@@ -92,7 +91,6 @@
 
   .content { flex: 1; padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
-  /* ===== Pantalla de carga ===== */
   .loader {
     display: grid; place-items: center;
     min-height: 100vh; min-height: 100dvh;
@@ -118,7 +116,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ===== Login (selección de RDV) ===== */
   .login-hero {
     padding: 32px 24px 24px;
     text-align: center;
@@ -167,7 +164,6 @@
   .rdv-item:active { transform: scale(0.98); background: var(--primary-soft); border-color: var(--primary); }
   .rdv-item .arrow { color: var(--ink-faint); font-size: 18px; }
 
-  /* ===== Sección "Hoy" y búsqueda ===== */
   .section-title {
     font-family: var(--font-display);
     font-size: 13px;
@@ -210,7 +206,6 @@
     color: var(--ink-faint);
   }
 
-  /* ===== Cards de cliente / producto ===== */
   .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -238,6 +233,12 @@
     color: var(--ink-soft);
     margin: 0;
   }
+  .card-meta-strong {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    margin: 4px 0 0;
+  }
   .card-tag {
     background: var(--primary);
     color: white;
@@ -251,6 +252,7 @@
     flex-shrink: 0;
   }
   .card-tag.alt { background: var(--accent); }
+  .card-tag.muted { background: var(--bg-soft); color: var(--ink-soft); }
 
   .empty {
     text-align: center;
@@ -259,7 +261,6 @@
     font-size: 14px;
   }
 
-  /* ===== Sesión de visita ===== */
   .visit-banner {
     background: var(--primary);
     color: white;
@@ -345,7 +346,6 @@
   }
   .product-card .delete-btn:active { background: var(--bg-soft); color: var(--danger); }
 
-  /* ===== Botones ===== */
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: 100%;
@@ -380,7 +380,6 @@
     display: flex; flex-direction: column; gap: 6px;
   }
 
-  /* ===== Formulario de producto ===== */
   .form-group { margin-bottom: 16px; }
   .form-label {
     display: block;
@@ -408,6 +407,65 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .form-help { font-size: 12px; color: var(--ink-faint); margin-top: 6px; }
 
+  /* ===== Captura bultos + unidades ===== */
+  .qty-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .qty-block h4 {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .qty-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .qty-field label {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .qty-field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+  .qty-field input::-webkit-outer-spin-button,
+  .qty-field input::-webkit-inner-spin-button {
+    -webkit-appearance: none; margin: 0;
+  }
+  .qty-field input:focus { border-color: var(--primary); }
+  .qty-total {
+    background: var(--primary-soft);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px;
+  }
+  .qty-total span:first-child { color: var(--ink-soft); font-weight: 500; }
+  .qty-total .total-val {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 16px;
+  }
+
   .selected-product {
     background: var(--primary-soft);
     border: 1px solid var(--primary);
@@ -432,8 +490,13 @@
     font-size: 12px;
     color: var(--ink-soft);
   }
+  .selected-product .units-info {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 4px;
+  }
 
-  /* ===== Toast / Success ===== */
   .toast {
     position: fixed;
     bottom: 20px; left: 20px; right: 20px;
@@ -492,30 +555,9 @@
     margin: 0 0 8px;
   }
   .success-card p { color: var(--ink-soft); font-size: 14px; margin: 0 0 8px; }
-  .success-card .visit-id {
-    font-family: 'DM Mono', ui-monospace, monospace;
-    font-size: 11px;
-    color: var(--ink-faint);
-    margin-bottom: 20px;
-    word-break: break-all;
-  }
 
-  /* ===== Cliente seleccionado en captura ===== */
-  .day-banner {
-    background: var(--accent-soft);
-    color: var(--accent);
-    padding: 8px 12px;
-    border-radius: var(--radius-sm);
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  /* ===== Helpers ===== */
   .hidden { display: none !important; }
 
-  /* ===== Mobile optimizations ===== */
   @media (max-width: 380px) {
     .content { padding: 16px; }
     .header { padding: 14px 16px; }
@@ -571,12 +613,14 @@
       <div id="clientes-suggested"></div>
     </div>
 
-    <div class="section-title">Todos los clientes</div>
-    <div id="clientes-all"></div>
+    <div id="clientes-mine-section">
+      <div class="section-title" id="clientes-mine-title">Otros días de mi ruta</div>
+      <div id="clientes-mine"></div>
+    </div>
   </div>
 </div>
 
-<!-- ============ PANTALLA DE VISITA (carrito de productos) ============ -->
+<!-- ============ PANTALLA DE VISITA ============ -->
 <div id="screen-visita" class="screen">
   <div class="header">
     <button class="header-back" onclick="cancelVisit()">←</button>
@@ -649,16 +693,44 @@
         <div class="label">Producto seleccionado</div>
         <div class="name" id="selected-prod-name">—</div>
         <div class="sku" id="selected-prod-sku">—</div>
+        <div class="units-info" id="selected-prod-units">—</div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Anaquel</label>
-          <input id="input-anaquel" class="form-input" type="number" min="0" inputmode="numeric" placeholder="0" />
+      <!-- ANAQUEL -->
+      <div class="qty-block">
+        <h4>📦 Anaquel</h4>
+        <div class="qty-fields">
+          <div class="qty-field">
+            <label>Bultos completos</label>
+            <input id="anaquel-bultos" type="number" min="0" inputmode="numeric" placeholder="0" />
+          </div>
+          <div class="qty-field">
+            <label>Unidades sueltas</label>
+            <input id="anaquel-unidades" type="number" min="0" inputmode="numeric" placeholder="0" />
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Bodega</label>
-          <input id="input-bodega" class="form-input" type="number" min="0" inputmode="numeric" placeholder="0" />
+        <div class="qty-total">
+          <span>Total en unidades:</span>
+          <span class="total-val" id="anaquel-total">0</span>
+        </div>
+      </div>
+
+      <!-- BODEGA -->
+      <div class="qty-block">
+        <h4>🏬 Bodega</h4>
+        <div class="qty-fields">
+          <div class="qty-field">
+            <label>Bultos completos</label>
+            <input id="bodega-bultos" type="number" min="0" inputmode="numeric" placeholder="0" />
+          </div>
+          <div class="qty-field">
+            <label>Unidades sueltas</label>
+            <input id="bodega-unidades" type="number" min="0" inputmode="numeric" placeholder="0" />
+          </div>
+        </div>
+        <div class="qty-total">
+          <span>Total en unidades:</span>
+          <span class="total-val" id="bodega-total">0</span>
         </div>
       </div>
 
@@ -686,14 +758,13 @@
     <div class="success-icon">✓</div>
     <h3>¡Visita enviada!</h3>
     <p id="success-message">Tu captura se guardó correctamente.</p>
-    <div class="visit-id" id="success-visit-id">—</div>
     <button class="btn btn-primary" onclick="closeSuccessAndContinue()">Continuar a siguiente cliente</button>
   </div>
 </div>
 
 <script>
 /* =====================================================
-   CONFIGURACIÓN — Cambia aquí las URLs si es necesario
+   CONFIGURACIÓN
    ===================================================== */
 const API = {
   rdvs:      'https://rainelv.app.n8n.cloud/webhook/rdvs',
@@ -702,9 +773,6 @@ const API = {
   capturar:  'https://rainelv.app.n8n.cloud/webhook/inventario-rdv',
 };
 
-/* =====================================================
-   ESTADO GLOBAL
-   ===================================================== */
 const state = {
   rdvs: [],
   clientes: [],
@@ -721,9 +789,6 @@ const state = {
 const DAYS_ES = ['DOMINGO','LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
 const DAYS_ES_ACCENT = ['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
 
-/* =====================================================
-   UTILIDADES
-   ===================================================== */
 function getToday() { return DAYS_ES[new Date().getDay()]; }
 function getTodayDisplay() { return DAYS_ES_ACCENT[new Date().getDay()]; }
 
@@ -755,8 +820,13 @@ function formatNow() {
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
+function formatDateTime(d) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
 /* =====================================================
-   INICIALIZACIÓN — Cargar catálogos
+   INIT
    ===================================================== */
 async function init() {
   try {
@@ -769,7 +839,6 @@ async function init() {
     document.getElementById('loading-status').textContent = 'Cargando productos...';
     state.productos = await fetch(API.productos).then(r => r.json());
 
-    // Verificar si hay un RDV ya logueado (sesión persistente)
     const savedRdv = localStorage.getItem('davimar_rdv');
     if (savedRdv) {
       try {
@@ -790,7 +859,7 @@ async function init() {
 }
 
 /* =====================================================
-   LOGIN: lista de RDVs
+   LOGIN
    ===================================================== */
 function renderLoginScreen() {
   const list = document.getElementById('rdv-list');
@@ -820,7 +889,7 @@ function logout() {
 }
 
 /* =====================================================
-   PANTALLA CLIENTES: hoy + búsqueda
+   CLIENTES — Filtrados solo por el RDV logueado
    ===================================================== */
 function renderClientesScreen() {
   document.getElementById('rdv-name-header').textContent = state.currentRdv.nombre;
@@ -829,45 +898,62 @@ function renderClientesScreen() {
   const todayUpper = getToday();
   const rdvNombreNorm = normalize(state.currentRdv.nombre);
 
-  const sugeridos = state.clientes.filter(c => {
-    return normalize(c.rdv_nombre) === rdvNombreNorm &&
-           normalize(c.dia_visita) === normalize(todayUpper);
-  });
+  // SOLO clientes asignados al RDV logueado
+  const misClientes = state.clientes.filter(c =>
+    normalize(c.rdv_nombre) === rdvNombreNorm
+  );
+
+  // Sugeridos del día (ruta de hoy)
+  const sugeridos = misClientes.filter(c =>
+    normalize(c.dia_visita) === normalize(todayUpper)
+  );
+
+  // Otros días de mi ruta
+  const otrosDias = misClientes.filter(c =>
+    normalize(c.dia_visita) !== normalize(todayUpper)
+  );
 
   document.getElementById('today-count').textContent = sugeridos.length;
-  renderClienteCards('clientes-suggested', sugeridos, true);
+  renderClienteCards('clientes-suggested', sugeridos, 'today');
 
-  const sugeridosIds = new Set(sugeridos.map(c => c.cod_cliente));
-  const allOthers = state.clientes.filter(c => !sugeridosIds.has(c.cod_cliente));
-  renderClienteCards('clientes-all', allOthers, false);
+  document.getElementById('clientes-mine-title').textContent =
+    `Otros días de mi ruta (${otrosDias.length})`;
+  renderClienteCards('clientes-mine', otrosDias, 'other');
 
   document.getElementById('search-cliente').oninput = filterClientes;
   document.getElementById('search-cliente').value = '';
+
+  document.getElementById('clientes-suggested-section').style.display = '';
+  document.getElementById('clientes-mine-section').style.display = '';
 }
 
-function renderClienteCards(containerId, clientes, isSuggested) {
+function renderClienteCards(containerId, clientes, type) {
   const cont = document.getElementById(containerId);
   if (clientes.length === 0) {
-    if (isSuggested) {
+    if (type === 'today') {
       cont.innerHTML = '<div class="empty">No tienes clientes asignados hoy.</div>';
+    } else if (type === 'search') {
+      cont.innerHTML = '<div class="empty">No se encontraron clientes en tu ruta.</div>';
     } else {
-      cont.innerHTML = '<div class="empty">No se encontraron clientes.</div>';
+      cont.innerHTML = '<div class="empty">No hay más clientes en tu ruta.</div>';
     }
     return;
   }
   cont.innerHTML = '';
   clientes.forEach(c => {
     const card = document.createElement('div');
-    card.className = 'card' + (isSuggested ? ' suggested' : '');
-    const tag = isSuggested
-      ? '<span class="card-tag">Hoy</span>'
-      : (normalize(c.rdv_nombre) === normalize(state.currentRdv.nombre)
-          ? `<span class="card-tag alt">${c.dia_visita}</span>` : '');
+    card.className = 'card' + (type === 'today' ? ' suggested' : '');
+    let tag = '';
+    if (type === 'today') {
+      tag = '<span class="card-tag">Hoy</span>';
+    } else {
+      tag = `<span class="card-tag muted">${c.dia_visita || 'Sin día'}</span>`;
+    }
     card.innerHTML = `
       <div class="card-row">
         <div style="flex:1;min-width:0;">
           <p class="card-name">${c.nombre}</p>
-          <p class="card-meta">Cód: ${c.cod_cliente} · RDV: ${c.rdv_nombre}</p>
+          <p class="card-meta">Cód: ${c.cod_cliente}</p>
         </div>
         ${tag}
       </div>
@@ -879,19 +965,26 @@ function renderClienteCards(containerId, clientes, isSuggested) {
 
 function filterClientes() {
   const q = normalize(document.getElementById('search-cliente').value);
+  const rdvNombreNorm = normalize(state.currentRdv.nombre);
+
   if (!q) { renderClientesScreen(); return; }
 
   document.getElementById('clientes-suggested-section').style.display = 'none';
 
-  const filtered = state.clientes.filter(c =>
+  const misClientes = state.clientes.filter(c =>
+    normalize(c.rdv_nombre) === rdvNombreNorm
+  );
+
+  const filtered = misClientes.filter(c =>
     normalize(c.nombre).includes(q) || String(c.cod_cliente).includes(q)
   );
-  renderClienteCards('clientes-all', filtered, false);
-  document.querySelectorAll('.section-title')[1].textContent = `Resultados (${filtered.length})`;
+
+  document.getElementById('clientes-mine-title').textContent = `Resultados (${filtered.length})`;
+  renderClienteCards('clientes-mine', filtered, 'search');
 }
 
 /* =====================================================
-   VISITA: iniciar, GPS, productos
+   VISITA
    ===================================================== */
 function startVisit(cliente) {
   state.currentCliente = cliente;
@@ -920,7 +1013,7 @@ function obtainGPS() {
       state.gps = { lat: pos.coords.latitude, lng: pos.coords.longitude, status: 'ok' };
       document.getElementById('visit-gps-status').textContent = '📍 GPS confirmado';
     },
-    (err) => {
+    () => {
       state.gps = { lat: 0, lng: 0, status: 'denied' };
       document.getElementById('visit-gps-status').textContent = '📍 GPS no disponible';
     },
@@ -954,7 +1047,7 @@ function renderProductsList() {
     div.innerHTML = `
       <div class="info">
         <p class="name">${p.nombre}</p>
-        <p class="qty">Anaquel: ${p.cantidad_anaquel} · Bodega: ${p.cantidad_bodega}${cad}</p>
+        <p class="qty">Anaquel: ${p.cantidad_anaquel} und · Bodega: ${p.cantidad_bodega} und${cad}</p>
       </div>
       <button class="delete-btn" onclick="removeProduct(${idx})" aria-label="Eliminar">✕</button>
     `;
@@ -979,7 +1072,7 @@ function cancelVisit() {
 }
 
 /* =====================================================
-   AGREGAR PRODUCTO
+   AGREGAR PRODUCTO con bultos + unidades
    ===================================================== */
 function goToAddProduct() {
   document.getElementById('producto-cliente-name').textContent = state.currentCliente.nombre;
@@ -994,9 +1087,12 @@ function resetProductSelector() {
   document.getElementById('producto-form-wrap').classList.add('hidden');
   document.getElementById('producto-footer').classList.add('hidden');
   document.getElementById('search-producto').value = '';
-  document.getElementById('input-anaquel').value = '';
-  document.getElementById('input-bodega').value = '';
+  ['anaquel-bultos','anaquel-unidades','bodega-bultos','bodega-unidades'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
   document.getElementById('input-caducidad').value = '';
+  document.getElementById('anaquel-total').textContent = '0';
+  document.getElementById('bodega-total').textContent = '0';
   filterProductos();
 }
 
@@ -1008,7 +1104,6 @@ function filterProductos() {
   const q = normalize(document.getElementById('search-producto').value);
   const cont = document.getElementById('productos-list');
 
-  // Excluir productos ya agregados
   const alreadyAdded = new Set(state.cartProducts.map(p => p.sku));
   let list = state.productos.filter(p => !alreadyAdded.has(p.sku));
 
@@ -1020,7 +1115,7 @@ function filterProductos() {
     );
   }
 
-  list = list.slice(0, 50); // Limitar resultados para performance
+  list = list.slice(0, 50);
 
   if (list.length === 0) {
     cont.innerHTML = '<div class="empty">No se encontraron productos.</div>';
@@ -1030,11 +1125,13 @@ function filterProductos() {
   list.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
+    const undxc = p.und_x_caja || 1;
     card.innerHTML = `
       <div class="card-row">
         <div style="flex:1;min-width:0;">
           <p class="card-name">${p.nombre}</p>
           <p class="card-meta">SKU: ${p.sku} · ${p.categoria}</p>
+          <p class="card-meta-strong">📦 ${undxc} ${undxc === 1 ? 'unidad' : 'unidades'} por bulto</p>
         </div>
       </div>
     `;
@@ -1045,46 +1142,75 @@ function filterProductos() {
 
 function selectProduct(p) {
   state.selectedProduct = p;
+  const undxc = p.und_x_caja || 1;
+
   document.getElementById('selected-prod-name').textContent = p.nombre;
   document.getElementById('selected-prod-sku').textContent = `SKU: ${p.sku} · ${p.categoria}`;
+  document.getElementById('selected-prod-units').textContent =
+    `📦 1 bulto = ${undxc} ${undxc === 1 ? 'unidad' : 'unidades'}`;
+
   document.getElementById('producto-selector-wrap').classList.add('hidden');
   document.getElementById('producto-form-wrap').classList.remove('hidden');
   document.getElementById('producto-footer').classList.remove('hidden');
-  setTimeout(() => document.getElementById('input-anaquel').focus(), 100);
+
+  // Conectar cálculo en vivo
+  ['anaquel-bultos','anaquel-unidades'].forEach(id => {
+    document.getElementById(id).oninput = () => updateTotal('anaquel');
+  });
+  ['bodega-bultos','bodega-unidades'].forEach(id => {
+    document.getElementById(id).oninput = () => updateTotal('bodega');
+  });
+
+  setTimeout(() => document.getElementById('anaquel-bultos').focus(), 100);
+}
+
+function updateTotal(tipo) {
+  const undxc = state.selectedProduct.und_x_caja || 1;
+  const bultos = parseInt(document.getElementById(`${tipo}-bultos`).value, 10) || 0;
+  const unidades = parseInt(document.getElementById(`${tipo}-unidades`).value, 10) || 0;
+  const total = (bultos * undxc) + unidades;
+  document.getElementById(`${tipo}-total`).textContent = total;
 }
 
 function confirmAddProduct() {
-  const anaquel = parseInt(document.getElementById('input-anaquel').value, 10);
-  const bodega = parseInt(document.getElementById('input-bodega').value, 10);
-  const cad = document.getElementById('input-caducidad').value;
+  const undxc = state.selectedProduct.und_x_caja || 1;
 
-  if (isNaN(anaquel) || anaquel < 0) {
-    showToast('Ingresa la cantidad en anaquel', 'error');
-    document.getElementById('input-anaquel').focus();
+  const aBultos = parseInt(document.getElementById('anaquel-bultos').value, 10) || 0;
+  const aUnidades = parseInt(document.getElementById('anaquel-unidades').value, 10) || 0;
+  const bBultos = parseInt(document.getElementById('bodega-bultos').value, 10) || 0;
+  const bUnidades = parseInt(document.getElementById('bodega-unidades').value, 10) || 0;
+
+  const totalAnaquel = (aBultos * undxc) + aUnidades;
+  const totalBodega = (bBultos * undxc) + bUnidades;
+
+  if (totalAnaquel === 0 && totalBodega === 0) {
+    showToast('Ingresa al menos una cantidad', 'error');
+    document.getElementById('anaquel-bultos').focus();
     return;
   }
-  if (isNaN(bodega) || bodega < 0) {
-    showToast('Ingresa la cantidad en bodega', 'error');
-    document.getElementById('input-bodega').focus();
-    return;
-  }
+
+  const cad = document.getElementById('input-caducidad').value;
 
   state.cartProducts.push({
     sku: state.selectedProduct.sku,
     nombre: state.selectedProduct.nombre,
-    cantidad_anaquel: anaquel,
-    cantidad_bodega: bodega,
+    cantidad_anaquel: totalAnaquel,
+    cantidad_bodega: totalBodega,
+    anaquel_bultos: aBultos,
+    anaquel_unidades: aUnidades,
+    bodega_bultos: bBultos,
+    bodega_unidades: bUnidades,
     caducidad_proxima: cad || '',
     foto_url: ''
   });
 
-  showToast('Producto agregado ✓', 'success');
+  showToast(`✓ ${state.selectedProduct.nombre} agregado`, 'success');
   renderProductsList();
   showScreen('screen-visita');
 }
 
 /* =====================================================
-   FINALIZAR VISITA: enviar al webhook
+   FINALIZAR VISITA
    ===================================================== */
 async function finalizarVisita() {
   if (state.cartProducts.length === 0) {
@@ -1094,7 +1220,7 @@ async function finalizarVisita() {
 
   const btn = document.getElementById('btn-finalizar');
   btn.disabled = true;
-  btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;border-top-color:white;border-color:rgba(255,255,255,0.3);border-top-color:white;"></div> Enviando...';
+  btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;border-color:rgba(255,255,255,0.3);border-top-color:white;"></div> Enviando...';
 
   const payload = {
     cod_cliente: String(state.currentCliente.cod_cliente),
@@ -1110,6 +1236,10 @@ async function finalizarVisita() {
       sku: p.sku,
       cantidad_anaquel: p.cantidad_anaquel,
       cantidad_bodega: p.cantidad_bodega,
+      anaquel_bultos: p.anaquel_bultos,
+      anaquel_unidades: p.anaquel_unidades,
+      bodega_bultos: p.bodega_bultos,
+      bodega_unidades: p.bodega_unidades,
       caducidad_proxima: p.caducidad_proxima,
       foto_url: p.foto_url || ''
     }))
@@ -1128,7 +1258,6 @@ async function finalizarVisita() {
 
     document.getElementById('success-message').textContent =
       `${state.cartProducts.length} producto${state.cartProducts.length > 1 ? 's' : ''} capturado${state.cartProducts.length > 1 ? 's' : ''} en ${state.currentCliente.nombre}.`;
-    document.getElementById('success-visit-id').textContent = '';
     document.getElementById('success-overlay').classList.add('show');
 
   } catch (err) {
@@ -1137,11 +1266,6 @@ async function finalizarVisita() {
     btn.disabled = false;
     btn.innerHTML = '✓ Cerrar visita y enviar';
   }
-}
-
-function formatDateTime(d) {
-  const pad = n => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
 function closeSuccessAndContinue() {
